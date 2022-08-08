@@ -4,4 +4,5 @@ COPY api_yamdb/requirements.txt /app
 RUN python -m pip install --upgrade pip
 RUN pip3 install -r requirements.txt --no-cache-dir
 COPY .. /app
+WORKDIR /app/api_yamdb
 CMD ["gunicorn", "api_yamdb.wsgi:application", "--bind", "0:8000" ]
