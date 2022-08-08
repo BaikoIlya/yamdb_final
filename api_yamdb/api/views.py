@@ -1,30 +1,27 @@
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import send_mail
 from django.db.models import Avg
 from django.db.models.functions import Round
 from django.shortcuts import get_object_or_404
-from django.core.mail import send_mail
-from rest_framework.decorators import action, api_view, permission_classes
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework import filters, permissions, status, viewsets
-from rest_framework.response import Response
-from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
-from django.contrib.auth.tokens import default_token_generator
-from .filters import TitleFilter
-from .mixins import (
-    CreateDestroyListGenericMixin,
-    CreateListDestroyUpdateRetrieveMixin,
-)
-from .permission import UserAdminOnly, ReviewAndCommentPermission
-from .serializers import (
-    CategorySerializer, GenreSerializer,
-    MyTokenObtainPairSerializer, TitleCreateSerializer,
-    TitleViewSerializer, UserAuthSerializer,
-    UserMeSerializer, UsersSerializer, ReviewSerializer,
-    CommentSerializer,
-)
+from rest_framework import filters, permissions, status, viewsets
+from rest_framework.decorators import action, api_view, permission_classes
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
+from reviews.models import Review
 from titles.models import Category, Genre, Title
 from user.models import User
-from reviews.models import Review
+
+from .filters import TitleFilter
+from .mixins import (CreateDestroyListGenericMixin,
+                     CreateListDestroyUpdateRetrieveMixin)
+from .permission import ReviewAndCommentPermission, UserAdminOnly
+from .serializers import (CategorySerializer, CommentSerializer,
+                          GenreSerializer, MyTokenObtainPairSerializer,
+                          ReviewSerializer, TitleCreateSerializer,
+                          TitleViewSerializer, UserAuthSerializer,
+                          UserMeSerializer, UsersSerializer)
 
 
 @api_view(['POST'])

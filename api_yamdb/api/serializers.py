@@ -3,8 +3,8 @@ import datetime
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
-from titles.models import Category, Genre, Title
 from reviews.models import Comment, Review
+from titles.models import Category, Genre, Title
 from user.models import User
 
 
