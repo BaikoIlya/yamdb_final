@@ -43,7 +43,7 @@ jobs:
         with:
           file: api_yamdb/Dockerfile
           push: true
-          tags: ilyabaiko/yamdb
+          tags: ${{ secrets.DOCKER_USERNAME }}/yamdb
   deploy:
     runs-on: ubuntu-latest
     needs: build_and_push_to_docker_hub
@@ -59,7 +59,7 @@ jobs:
           script: |
             sudo docker-compose stop
             sudo docker-compose down -v
-            sudo docker rmi ilyabaiko/yamdb
+            sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/yamdb
             touch .env
             echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
             echo DB_NAME=${{ secrets.DB_NAME }} >> .env
